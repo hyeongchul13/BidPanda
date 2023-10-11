@@ -43,7 +43,7 @@ jobs:
     - name: Make zip file
       run: zip -r /bidpanda.zip
       shell: bash
-
+//왜안돼
     # S3 Bucket으로 copy
     - name: Deliver to AWS S3
       uses: aws-actions/configure-aws-credentials@v1
