@@ -1,0 +1,18 @@
+version: 0.0 # 버전 표시
+os: linux # 적용 os
+files: # 배포 파일 설정
+  - source: / # 인스턴스에 복사할 디렉토리 경로
+    destination: /home/ubuntu/app/ # 인스턴스에서 파일이 복사될 경로
+    overwrite: yes # 복사할 위치에 파일이 있는 경우 덮어쓰기 가능 여부
+
+permissions: # 복사한 파일에 대한 권한 설정
+  - object: / # 권한이 지정되는 파일 또는 디렉토리
+    pattern: "**" # 매칭되는 패턴에만 권한 부여
+    owner: ubuntu # object의 소유자
+    group: ubuntu # object의 그룹 이름
+
+hooks: # 자동으로 수행할 스크립트 지정
+  ApplicationStart: # 자동 실행
+    - location: deploy.sh # 시행할 스크립트 이름
+      timeout: 60 # 스크립트 실행시 시간 제한 (초과할 시 배포 실패 처리)
+      runas: ubuntu # 스크립트 실행자
