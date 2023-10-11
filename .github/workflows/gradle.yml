@@ -2,9 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ CICDtest ]
-  pull_request:
-    branches: [ CICDtest ]
+    branches: [ deploy-practice-3 ]
 
 env:
   PROJECT_NAME: first_project
