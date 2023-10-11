@@ -33,6 +33,7 @@ public class Member {
 
     private Long kakaoId;
 
+    @Builder.Default
     private String intro = "";
 
     public Member(String membername, String password, String email, String nickname) {
