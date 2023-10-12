@@ -30,22 +30,21 @@ jobs:
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           arguments: clean bootJar
+
       - name: Make Directory
         run: mkdir -p deploy
 
-      # Jar 파일 복사
+# Jar 파일 복사
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy
-
-      # appspec.yml 파일 복사
+# appspec.yml 파일 복사
       - name: Copy appspec.yml
         run: cp appspec.yml ./deploy
-
-      # script files 복사
+# script files 복사
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
-
-      - name: Make Zip File
+# deploy 폴더 파일 zip 압축
+      - name: Make zip file
         run: zip -r ./bidpanda.zip ./deploy
         shell: bash
 
@@ -59,10 +58,11 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./bidpanda.zip s3://$BUCKET_NAME
 
-      - name: Code Deploy To EC2 instance
+      - name: Deploy
         run: aws deploy create-deployment
           --application-name $CODE_DEPLOY_APP_NAME
+          --deployment-group-name $DEPLOYMENT_GROUP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name $DEPLOYMENT_GROUP_NAME 
+          --file-exists-behavior OVERWRITE
           --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip 
           --region ap-northeast-2
