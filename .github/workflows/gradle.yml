@@ -34,9 +34,22 @@ jobs:
         with:
           arguments: clean bootJar
 
-# 전송할 파일을 담을 디렉토리 생성
-      - name: Make Directory for deliver
-        run: mkdir deploy && cp build/libs/*.jar deploy/ && cp appspec.yml deploy/ && cp script/deploy.sh deploy/
+      # 디렉토리 생성
+      - name: Make Directory
+        run: mkdir -p deploy
+      # Jar 파일 복사
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy
+      # appspec.yml 파일 복사
+      - name: Copy appspec.yml
+        run: cp appspec.yml ./deploy
+      # script files 복사
+      - name: Copy script
+        run: cp ./scripts/*.sh ./deploy
+      # deploy 폴더 파일 zip 압축
+      - name: Make zip file
+        run: zip -r ./bidpanda.zip ./deploy
+        shell: bash
 
       # 압축
       - name: Make zip file
