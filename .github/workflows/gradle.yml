@@ -8,6 +8,7 @@ env:
   BUCKET_NAME: my-github-actinos-s3-bucket
   CODE_DEPLOY_APP_NAME: my-miniproject-codedeploy-app
   DEPLOYMENT_GROUP_NAME: my-miniproject-deployment-group
+  RESOURCE_PATH: ./src/main/resources/application.yaml
 
 jobs:
   build:
@@ -25,6 +26,26 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      - name: Update application.yml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ${{ env.RESOURCE_PATH }}
+        env:
+          cloud.aws.credentials.accessKey: ${{ secrets.AWS_ACCESS_KEY }}
+          cloud.aws.credentials.secretKey: ${{ secrets.AWS_SECRET_KEY }}
+          cloud.aws.s3.bucket: ${{secrets.AWS_S3_BUCKET}}
+          spring.datasource.url: ${{ secrets.DB_URL }}
+          spring.datasource.username: ${{ secrets.DB_USERNAME }}
+          spring.datasource.password: ${{ secrets.DB_PASSWORD }}
+          spring.data.redis.host: ${{ secrets.REDIS_HOST }}
+          spring.data.redis.port: ${{ secrets.REDIS_PORT }}
+          spring.mail.username: ${{ secrets.MAIL_USERNAME }}
+          spring.mail.password: ${{ secrets.MAIL_PASSWORD }}
+          jwt.secret.key: ${{ secrets.JWT_SECRET_KEY }}
+
+
+
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
