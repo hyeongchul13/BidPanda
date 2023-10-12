@@ -64,8 +64,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: aws deploy create-deployment \
-          --application-name $CODE_DEPLOY_APP_NAME \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name my-miniproject-codedeploy-app \
           --deployment-group-name $DEPLOYMENT_GROUP_NAME \
           --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip \
           --region ap-northeast-2
