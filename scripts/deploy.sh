@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu # 실행 경로 설정
+REPOSITORY=/home/ubuntu/app # 실행 경로 설정
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
