@@ -32,6 +32,9 @@ jobs:
         with:
           arguments: clean bootJar
 
+      - name: Copy script
+        run: cp ./scripts/*.sh ./deploy
+
       - name: Make Zip File
         run: zip -qq -r ./bidpanda.zip .
         shell: bash
