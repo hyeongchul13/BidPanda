@@ -5,7 +5,6 @@ on:
     branches: [ deploy-practice-3 ]
 
 env:
-  PROJECT_NAME: first_project
   BUCKET_NAME: my-github-actinos-s3-bucket
   CODE_DEPLOY_APP_NAME: my-miniproject-codedeploy-app
   DEPLOYMENT_GROUP_NAME: my-miniproject-deployment-group
@@ -52,4 +51,4 @@ jobs:
           --application-name $CODE_DEPLOY_APP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --deployment-group-name $DEPLOYMENT_GROUP_NAME
-          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/bidpanda.zip
+          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip
