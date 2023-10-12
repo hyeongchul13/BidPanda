@@ -4,6 +4,9 @@ on:
   push:
     branches: [ deploy-practice-3 ]
 
+permissions:
+  contents: read
+
 env:
   BUCKET_NAME: my-github-actinos-s3-bucket
   CODE_DEPLOY_APP_NAME: my-miniproject-codedeploy-app
@@ -15,10 +18,10 @@ jobs:
 
     steps:
       # 1) 워크플로우 실행 전 기본적으로 체크아웃 필요
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -31,22 +34,13 @@ jobs:
         with:
           arguments: clean bootJar
 
-      - name: Make Directory
-        run: mkdir -p deploy
+# 전송할 파일을 담을 디렉토리 생성
+      - name: Make Directory for deliver
+        run: mkdir deploy && cp build/libs/*.jar deploy/ && cp appspec.yml deploy/ && cp script/deploy.sh deploy/
 
-# Jar 파일 복사
-      - name: Copy Jar
-        run: cp ./build/libs/*.jar ./deploy
-# appspec.yml 파일 복사
-      - name: Copy appspec.yml
-        run: cp appspec.yml ./deploy
-# script files 복사
-      - name: Copy script
-        run: cp ./scripts/*.sh ./deploy
-# deploy 폴더 파일 zip 압축
+      # 압축
       - name: Make zip file
-        run: zip -r ./bidpanda.zip ./deploy
-        shell: bash
+        run: zip -r -qq -j bidpanda.zip deploy
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -56,7 +50,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./bidpanda.zip s3://$BUCKET_NAME
+        run: aws s3 cp --region ap-northeast-2 ./bidpanda.zip s3://$BUCKET_NAME/bidpanda.zip
 
       - name: Deploy
         run: aws deploy create-deployment
@@ -64,5 +58,4 @@ jobs:
           --deployment-group-name $DEPLOYMENT_GROUP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip 
-          --region ap-northeast-2
+          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip
