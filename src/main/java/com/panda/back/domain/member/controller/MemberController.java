@@ -38,6 +38,12 @@ public class MemberController {
     private final KakaoService kakaoService;
     private final MailSerivce mailSerivce;
 
+    @Operation(summary = "서버 CICD 체크")
+    @GetMapping("/ping")
+    public String hi() {
+        return "pong";
+    }
+
     @Operation(summary = "아이디 중복 체크")
     @GetMapping("/membername/{membername}")
     public ResponseEntity<BaseResponse> membernameExists(@PathVariable String membername) {
