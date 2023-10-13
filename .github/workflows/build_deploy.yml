@@ -25,9 +25,6 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: Build and Test
-        run: ./gradlew build test
-
       - name: Update application.yml
         uses: microsoft/variable-substitution@v1
         with:
@@ -44,3 +41,7 @@ jobs:
           spring.mail.username: ${{ secrets.MAIL_USERNAME }}
           spring.mail.password: ${{ secrets.MAIL_PASSWORD }}
           jwt.secret.key: ${{ secrets.JWT_SECRET_KEY }}
+
+      - name: Build and Test
+        run: ./gradlew build test
+
