@@ -66,7 +66,7 @@ jobs:
         run: cp ./scripts/*.sh ./deploy
       # deploy 폴더 파일 zip 압축
       - name: Make zip file
-        run: zip -r ./bidpanda.zip ./deploy/
+        run: zip -r ./bidpanda.zip ./bidpanda/
         shell: bash
 
       # 압축
@@ -81,7 +81,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./bidpanda.zip s3://$BUCKET_NAME/deploy/
+        run: aws s3 cp --region ap-northeast-2 ./bidpanda.zip s3://$BUCKET_NAME/bidpanda/
 
       - name: Deploy
         env:
