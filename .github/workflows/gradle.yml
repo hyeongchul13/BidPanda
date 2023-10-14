@@ -64,7 +64,6 @@ jobs:
       # script files 복사
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
-      -
       # deploy 폴더 파일 zip 압축
       - name: Make zip file
         run: zip -r ./bidpanda.zip ./deploy/
