@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class S3Config {
-    @Value("${secrets.AWS_ACCESS_KEY}")
+    @Value("${AWS_ACCESS_KEY}")
     private String accessKey;
-    @Value("${secrets.AWS_SECRET_KEY}")
+    @Value("${AWS_SECRET_KEY}")
     private String secretKey;
-    @Value("${cloud.aws.region.static}")
+    @Value("${REGION}")
     private String region;
 
     @Bean
