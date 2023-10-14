@@ -65,7 +65,7 @@ public class TokenProvider {
     }
 
     public String getJwtFromHeader(HttpServletRequest request, String token) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        String bearerToken = request.getHeader(token);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }
