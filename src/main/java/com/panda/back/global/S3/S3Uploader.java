@@ -26,7 +26,7 @@ public class S3Uploader {
         this.amazonS3 = amazonS3;
         this.bucket = bucket;
     }
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+    public String upload(MultipartFile multipartFile, String deploy) throws IOException {
         // 파일 이름에서 공백을 제거한 새로운 파일 이름 생성
         String originalFileName = multipartFile.getOriginalFilename();
 
@@ -34,7 +34,7 @@ public class S3Uploader {
         String uuid = UUID.randomUUID().toString();
         String uniqueFileName = uuid + "_" + originalFileName.replaceAll("\\s", "_");
 
-        String fileName = dirName + "/" + uniqueFileName;
+        String fileName = deploy + "/" + uniqueFileName;
         log.info("fileName: " + fileName);
         File uploadFile = convert(multipartFile);
 
