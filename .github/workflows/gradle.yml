@@ -64,6 +64,7 @@ jobs:
       # script files 복사
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
+      -
       # deploy 폴더 파일 zip 압축
       - name: Make zip file
         run: zip -r ./bidpanda.zip ./deploy/
@@ -92,5 +93,5 @@ jobs:
           --deployment-group-name $DEPLOYMENT_GROUP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=$BUCKET_NAME,bundleType=folder,key=deploy
+          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip
           --region ap-northeast-2
