@@ -66,7 +66,7 @@ jobs:
         run: cp ./scripts/*.sh ./deploy
       # deploy 폴더 파일 zip 압축
       - name: Make zip file
-        run: zip -r ./bidpanda.zip ./bidpanda/
+        run: zip -r ./bidpanda.zip ./deploy
         shell: bash
 
       # 압축

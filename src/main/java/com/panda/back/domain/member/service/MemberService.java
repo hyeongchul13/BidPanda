@@ -119,7 +119,7 @@ public class MemberService {
 
     @Transactional
     public BaseResponse uploadProfileImage(MultipartFile file, Member member) throws IOException {
-        String url = s3Uploader.upload(file, "profile");
+        String url = s3Uploader.upload(file, "bidpanda");
         member.profileImageUrlUpdate(url);
         memberRepository.save(member);
         return BaseResponse.successData(url);
