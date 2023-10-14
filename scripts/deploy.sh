@@ -27,4 +27,4 @@ chmod +x $JAR_NAME # Jar파일 실행 권한 추가
 
 echo "> $JAR_NAME 실행"
 # Seoul시간대로 설정하여 자동 실행
-nohup java -Duser.timezone=Asia/Seoul -jar $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
+nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
