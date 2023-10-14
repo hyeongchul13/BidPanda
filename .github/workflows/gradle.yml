@@ -92,5 +92,5 @@ jobs:
           --deployment-group-name $DEPLOYMENT_GROUP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=bidpanda.zip
+          --s3-location bucket=$BUCKET_NAME/bidpanda/,bundleType=zip,key=bidpanda.zip
           --region ap-northeast-2
