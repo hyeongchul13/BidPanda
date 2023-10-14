@@ -33,8 +33,7 @@ public class Member {
 
     private Long kakaoId;
 
-    @Builder.Default
-    private String intro = "";
+    private String intro;
 
     public Member(String membername, String password, String email, String nickname) {
         this.membername = membername;
@@ -56,9 +55,8 @@ public class Member {
         return this;
     }
 
-    public Member profileImageUrlUpdate(String profileImageUrl) {
+    public void profileImageUrlUpdate(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
-        return this;
     }
 
     public void setPassword(String password) {
