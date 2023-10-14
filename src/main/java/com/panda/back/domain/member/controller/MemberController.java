@@ -86,7 +86,7 @@ public class MemberController {
             @AuthenticationPrincipal MemberDetailsImpl memberDetails) {
         return memberService.deleteMember(memberDetails.getMember());
     }
-
+//왜 안돼
     // 카카오 로그인
     @Operation(summary = "카카오 로그인")
     @GetMapping("/kakao/callback")
