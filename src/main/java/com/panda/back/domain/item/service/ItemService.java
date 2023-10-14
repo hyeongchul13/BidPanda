@@ -36,7 +36,7 @@ public class ItemService {
             throw new CustomException(ErrorCode.NOT_FOUND_IMAGE);
         }
         for (MultipartFile image : images) {
-            String fileName = s3Uploader.upload(image, "image");
+            String fileName = s3Uploader.upload(image, "deploy");
             URL imageUrl = new URL(fileName);
             item.addImages(imageUrl);
         }
@@ -83,7 +83,7 @@ public class ItemService {
         if (images != null && !images.isEmpty()) {
             item.clearImages();
             for (MultipartFile image : images) {
-                String fileName = s3Uploader.upload(image, "image");
+                String fileName = s3Uploader.upload(image, "deploy");
                 URL imageUrl = new URL(fileName);
                 item.addImages(imageUrl);
             }

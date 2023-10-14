@@ -92,5 +92,5 @@ jobs:
           --deployment-group-name $DEPLOYMENT_GROUP_NAME
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=deploy
+          --s3-location bucket=$BUCKET_NAME,bundleType=folder,key=deploy
           --region ap-northeast-2
