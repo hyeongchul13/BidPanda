@@ -65,7 +65,7 @@ jobs:
       # 배포에 필요한 여러 설정 파일과 프로젝트 빌드파일을 zip 파일로 모아줍니다.
     - name: Make zip file
       run: |
-        mkdir deploy
+        mkdir -p deploy
         cp ./docker/docker-compose.blue.yml ./deploy/
         cp ./docker/docker-compose.green.yml ./deploy/
         cp ./appspec.yml ./deploy/
