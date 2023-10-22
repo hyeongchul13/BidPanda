@@ -6,8 +6,8 @@ on:
 
 env:
   BUCKET_NAME: my-github-actinos-s3-bucket
-  CODE_DEPLOY_APP_NAME: my-miniproject-codedeploy-app
-  DEPLOYMENT_GROUP_NAME: my-miniproject-deployment-group
+  CODE_DEPLOY_APP_NAME: Nginx-deploy
+  DEPLOYMENT_GROUP_NAME: Nginx-deploy
   RESOURCE_PATH: ./src/main/resources/application.yaml
 
 permissions:
