@@ -71,7 +71,7 @@ jobs:
         cp ./appspec.yml ./deploy/
         cp ./docker/Dockerfile ./deploy/
         cp ./scripts/*.sh ./deploy/
-        cp ./build/libs/*.jar ./deploy/
+        cp ./build/libs/bidpanda-0.0.1-SNAPSHOT.jar ./deploy/
         zip -r -qq -j ./bidpanda.zip ./deploy
 
       # AWS에 연결해줍니다.
