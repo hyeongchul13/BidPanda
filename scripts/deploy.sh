@@ -5,10 +5,9 @@ cd /home/ubuntu
 
 # 환경변수 DOCKER_APP_NAME을 jcdoker/docker_test로 설정
 DOCKER_APP_NAME=docker
-
-# 실행중인 blue가 있는지 확인
-# 프로젝트의 실행 중인 컨테이너를 확인하고, 해당 컨테이너가 실행 중인지 여부를 EXIST_BLUE 변수에 저장
 EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
+BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
+GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep Up)
 
 # 배포 시작한 날짜와 시간을 기록
 echo "배포 시작일자 : $(date +%Y)-$(date +%m)-$(date +%d) $(date +%H):$(date +%M):$(date +%S)" >> /home/ubuntu/deploy.log
@@ -25,9 +24,6 @@ if [ -z "$EXIST_BLUE" ]; then
 
   # 30초 동안 대기
   sleep 30
-
-  # blue가 문제 없이 배포 되었는지 현재 실행여부를 확인한다
-  BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
 
  # blue가 현재 실행중이지 않다면 -> 런타임 에러 또는 다른 이유로 배포가 되지 못한 상태
   if [ -z "$BLUE_HEALTH" ]; then
@@ -55,10 +51,7 @@ else
 
   sleep 30
 
-  GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep Up)
-
   if [ -z "$GREEN_HEALTH" ]; then
-
       sudo ./slack_green.sh
   else
 
