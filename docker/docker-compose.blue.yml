@@ -9,4 +9,4 @@ services:
     ports:
       - "8081:80"
     # 컨테이너의 이름
-    container_name: spring-blue
+    container_name: docker-blue
