@@ -5,7 +5,7 @@ cd /home/ubuntu
 
 # 환경변수 DOCKER_APP_NAME을 jcdoker/docker_test로 설정
 DOCKER_APP_NAME=docker
-EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps "docker-blue" | grep up)
+EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps  | grep "docker-blue" up)
 BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep "docker-blue" up)
 GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep "docker-green" up)
 
