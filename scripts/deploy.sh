@@ -5,14 +5,13 @@ cd /home/ubuntu
 
 # 환경변수 DOCKER_APP_NAME을 jcdoker/docker_test로 설정
 DOCKER_APP_NAME=docker
-EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep running)
-BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep running)
-GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep running)
+EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep up)
+BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep up)
+GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep up)
 
 # green이 실행중이면 blue up
 # EXIST_BLUE 변수가 비어있는지 확인
 if [ -z "$EXIST_BLUE" ]; then
-
     # docker-compose.blue.yml 파일을 사용하여 docker-blue 프로젝트의 컨테이너를 빌드하고 실행
     sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d --build
 
