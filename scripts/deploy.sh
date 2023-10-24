@@ -5,7 +5,7 @@ cd /home/ubuntu
 
 # 환경변수 DOCKER_APP_NAME을 jcdoker/docker_test로 설정
 DOCKER_APP_NAME=docker
-EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
+EXIST_BLUE=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep running)
 BLUE_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
 GREEN_HEALTH=$(sudo docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml ps | grep Up)
 
@@ -14,7 +14,7 @@ echo "배포 시작일자 : $(date +%Y)-$(date +%m)-$(date +%d) $(date +%H):$(da
 
 # green이 실행중이면 blue up
 # EXIST_BLUE 변수가 비어있는지 확인
-if [ -z "$EXIST_BLUE" ]; then
+if [ "$EXIST_BLUE" ]; then
 
   # 로그 파일(/home/ubuntu/deploy.log)에 "blue up - blue 배포 : port:8081"이라는 내용을 추가
   echo "blue 배포 시작 : $(date +%Y)-$(date +%m)-$(date +%d) $(date +%H):$(date +%M):$(date +%S)" >> /home/ubuntu/deploy.log
@@ -26,7 +26,7 @@ if [ -z "$EXIST_BLUE" ]; then
   sleep 30
 
  # blue가 현재 실행중이지 않다면 -> 런타임 에러 또는 다른 이유로 배포가 되지 못한 상태
-  if [ -z "$BLUE_HEALTH" ]; then
+  if [ "$BLUE_HEALTH" ]; then
     # slack으로 알람을 보낼 수 있는 스크립트를 실행한다.
     sudo ./slack_blue.sh
   # blue가 현재 실행되고 있는 경우에만 green을 종료
@@ -51,7 +51,7 @@ else
 
   sleep 30
 
-  if [ -z "$GREEN_HEALTH" ]; then
+  if [ "$GREEN_HEALTH" ]; then
       sudo ./slack_green.sh
   else
 
