@@ -4,4 +4,7 @@ FROM openjdk:17-jdk
 ARG JAR_FILE=bidpanda-0.0.1-SNAPSHOT.jar
 # jar file copy
 COPY ${JAR_FILE} app.jar
+# docker Timezone 설정
+ENV TZ=Asia/Seoul
+
 ENTRYPOINT ["java", "-jar", "/app.jar"]
